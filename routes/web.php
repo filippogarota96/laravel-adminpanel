@@ -19,4 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/user', 'HomeController@index')->name('home');
+
+
+Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth')->group(function(){
+    Route::get('/admin', 'HomeController@index')->name('admin');
+    Route::resource('companies', 'CompanyController');
+    Route::resource('employees', 'EmployeeController');
+});
